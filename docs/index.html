@@ -1,12 +1,1235 @@
 <!DOCTYPE html>
-<html style="width:100%;height:100%;padding:0;margin:0">
+<html>
 
 <head lang="en">
     <meta charset="UTF-8">
     <title>CKCSS</title>
+
+    <link rel="stylesheet" href="ckcss.css">
+    <link rel="stylesheet" href="doc.css">
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="../js/CKCSS.js"></script>
 </head>
 
-<body style="width:100%;height:100%;padding:0;margin:0;overflow:hidden">
-	<iframe style="width:100%;height:100%;padding:0;margin:0" src="iframe.html"/>
+<body>
+    <div class="section">
+        <h1>CKCSS</h1>
+        <p>CKCSS is an Object-Oriented CSS Framework, created by CheckZhang. </p>
+        <p>Support browser:IE8+ Chrome Firfox Safari and Opara,CSS:3.0+, Current version: 1.0.0.0 <a href="../css/ckcss.css">download css from here</a></p>
+        <p>Download All From GitHub:<a href="https://github.com/CheckZhang/ckcss">https://github.com/CheckZhang/ckcss</a> </p>
+    </div>
+
+    <div class="section">
+        <h2>How to name a CSS Class in Object-Oriented CKCSS?</h2>
+        <div class="sc-content">
+            In CKCSS,  we use below way for Naming:<br/>
+                <ul>
+                    <li>format ".wordWord":  Base Class name</li>
+                    <li>format ".wd_word" :  Child Class name,the letters before underline is the abbreviation of it's parent class,and it aways follow the parent Class in css,eg:".parentClass.pc_ChildClass;"</li>
+                    <li>format "wd-word" :  For the Child Dom Class,html dom like <xmp><div class="parentClass"><div class="pc-childClass"></div></div></xmp>
+                    <li>format "WordWord": Dom ID's Css</li>
+                </ul>
+            <style>
+                .parentClass{
+                    background: #ff0000;
+                    height:160px;
+                    padding: 20px;;
+                }
+                .parentClass.pc_childClass{
+                    background: #E2DFCA;
+                }
+                .parentClass>.pc-childDom{
+                    background: #67b1d3;
+                    height: 60px;
+                    color:white;
+                }
+                #DomId{
+                    background: #ffde2d;
+                }
+            </style>
+            <div class="parentClass pc_childClass">
+                parentClass.pc_childClass
+                <div class="pc-childDom">
+                    pc-childDom
+                </div>
+                <div id="DomId">
+                    ID Element
+                </div>
+            </div>
+            <xmp>
+                <style>
+                    .parentClass{
+                        background: #ff0000;
+                        height:160px;
+                        padding: 20px;;
+                    }
+                    .parentClass.pc_childClass{
+                        background: #b9ff5c;
+                    }
+                    .parentClass>.pc-childDom{
+                        background: #67b1d3;
+                        height: 60px;
+                        color:white;
+                    }
+                    #DomId{
+                        background: #ffde2d;
+                    }
+                </style>
+                <div class="parentClass pc_childClass">
+                    parentClass.pc_childClass
+                    <div class="pc-childDom">
+                        pc-childDom
+                    </div>
+                    <div id="DomId">
+                        ID Element
+                    </div>
+                </div>
+            </xmp>
+        </div>
+    </div>
+    <!--<span>Some CSS Framework just use one of there three way, CKCSS use all to make Object-Oriented more structurized and clearer;</span>-->
+
+
+    <div class="section">
+        <h2>How to get Object-Oriented CSS in CKCSS?</h2>
+        <div class="sc-content">
+            <div>
+                <span class="button">normal button</span>
+                <span class="button bt_submit">submit button</span>
+                <span class="button bt_cancle">cancle button</span>
+            </div>
+
+            <xmp>
+                CSS file:
+                /** base class **/
+                .button{
+                background:#f6f6f6 ;
+                ...
+                }
+                /** Child class inherited from base class **/
+                .button.bt_submit{
+                background:#00a200;
+                ...
+                }
+                /** another Child class inherited from base class **/
+                .button.bt_cancle{
+                background:#2694be ;
+                ...
+                }
+
+                HTML file:
+                <div>
+                    <span class="button">normal button</span>
+                    <span class="button bt_submit">submit button</span>
+                    <span class="button bt_cancle">cancle button</span>
+                </div>
+            </xmp>
+            overwrite all button in a special area:<br/>
+            <div class="someArea">
+                <span class="button">normal button</span>
+                <span class="button bt_submit">submit button</span>
+                <span class="button bt_cancle">cancle button</span>
+            </div>
+            <xmp>
+                CSS file:
+                /** overwrite base class **/
+                .someArea .button{
+                    font-size:14px;
+                }
+
+                HTML file:
+                <div class="someArea">
+                    <span class="button">normal button</span>
+                    <span class="button bt_submit">submit button</span>
+                    <span class="button bt_cancle">cancle button</span>
+                </div>
+            </xmp>
+            There is another ways to get Class Inheriting ,but it is not recommend by CKCSS:<a href="javascript:void 0" class="more">click to see</a>
+        </div>
+
+        <div class="moreContent">
+                The code below not recommend in CKCSS:<br/>
+                css file:<br/>
+<xmp class="xmp_notCkcss">
+CSS file:
+/** Tip: below is not recommend in CKCSS **/
+/** base class **/
+.button,.button_submit,.button_cancel{
+    background:#f6f6f6 ;
+    ...
+}
+/** Child class inherited from base class **/
+.button_submit{
+    background:#00a200;
+    ...
+}
+/** another Child class inherited from base class **/
+.button_cancle{
+    background:#2694be ;
+    ...
+}
+
+/** overwrite base class in some area ,you need to change whole Inherited Class Tree but not by Base Class directly, it's difficute and not intuitionistic, especialy do width big tree, for example icon tree; **/
+.someArea .button,
+.someArea .button_submit,
+.someArea .button_cancel{
+    font-size:14px;
+}
+HTML file:<br/>
+<span class="button">normal button</span>
+<span class="button_submit">submit button</span><br/>
+<span class="button_cancle">cancle button</span>
+</xmp>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>CKCSS Alignment</h2>
+        <div class="sc-content">
+            <h3>1) Horizontal Alignment</h3>
+            <div class="sc-content">
+                Horizontal align in a Fixed Area:
+                <div class="example fixedAreas blueBgs inlineMiddles mls">
+                    <div class="lefts">
+                        left:<br/>
+                        <span class="yellowBg">span</span>
+                        <div class="yellowBg">div</div>
+                    </div><div class="centers">
+                        center:<br/>
+                        <span class="greenBg">span</span>
+                        <div class="greenBg">div</div>
+                    </div><div class="rights">
+                        right:<br/>
+                        <span class="redBg">span</span>
+                        <div class="redBg">div</div>
+                    </div>
+                </div>
+                <xmp>
+                    <div class="example fixedAreas blueBgs middles mls">
+                        <div class="lefts">
+                            left:<br/>
+                            <span class="yellowBg">span</span>
+                            <div class="yellowBg">div</div>
+                        </div><div class="centers">
+                            center:<br/>
+                            <span class="greenBg">span</span>
+                            <div class="greenBg">div</div>
+                        </div><div class="rights">
+                            right:<br/>
+                            <span class="redBg">span</span>
+                            <div class="redBg">div</div>
+                        </div>
+                    </div>
+                </xmp>
+            </div>
+            <div class="sc-content">
+                Horizontal align in Stretching Area:
+                <div class="example blueBgs inlineMiddles mls">
+                    <div class="lefts v100">
+                        left<br/>
+                        <span class="yellowBg">span1</span><span class="greenBg">span2</span><span class="blueBg">span3</span><span class="grayBg">...</span>
+                        <div class="yellowBg">div1</div>
+                        <div class="blueBg">div2</div>
+                        <div class="greenBg">div3</div>
+                        <div class="grayBgBg">...</div>
+                    </div><div class="centers v100">
+                        center<br/>
+                    <span class="yellowBg">span1</span><span class="greenBg">span2</span><span class="blueBg">span3</span><span class="grayBg">span4</span><span class="greenBg">and more...</span>
+                        <div class="greenBg">div</div>
+                    </div><div class="rights v100">
+                        right<br/>
+                    <span class="yellowBg">span1</span><span class="greenBg">span2</span><span class="blueBg">span3</span><span class="grayBg">...</span>
+                        <div class="redBg">div</div>
+                    </div>
+                </div>
+                <xmp>
+                    <div class="example blueBgs inlineMiddles mls">
+                        <div class="lefts v100">
+                            left<br/>
+                            <span class="yellowBg">span1</span><span class="greenBg">span2</span><span class="blueBg">span3</span><span class="grayBg">...</span>
+                            <div class="yellowBg">div1</div>
+                            <div class="blueBg">div2</div>
+                            <div class="greenBg">div3</div>
+                            <div class="grayBgBg">...</div>
+                        </div><div class="centers v100">
+                            center<br/>
+                            <span class="yellowBg">span1</span><span class="greenBg">span2</span><span class="blueBg">span3</span><span class="grayBg">span4</span><span class="greenBg">and more...</span>
+                            <div class="greenBg">div</div>
+                        </div><div class="rights v100">
+                            right<br/>
+                            <span class="yellowBg">span1</span><span class="greenBg">span2</span><span class="blueBg">span3</span><span class="grayBg">...</span>
+                            <div class="redBg">div</div>
+                        </div>
+                    </div>
+                </xmp>
+            </div>
+            <div class="sc-content">
+                <p>
+                    Horizontal align in Justify Layout:
+                    <div class="example">
+                        <div class="justifies mls middles">
+                            <div class="h33 lefts">
+                                <div class="jf-bg greenBg"></div>
+                                <span>left</span>
+                                <span class="yellowBg">span</span>
+                                <div class="yellowBg">div1</div>
+                                <div class="blueBg">div2</div>
+                                <div class="greenBg">...</div>
+                            </div>
+                            <div class="h34 centers">
+                                <div class="jf-bg blueBg"></div>
+                                <span>center</span>
+                                <span class="greenBg">span</span>
+                                <div class="greenBg">div</div>
+                            </div>
+                            <div class="h33 rights">
+                                <div class="jf-bg grayBg"></div>
+                                <span>right</span>
+                                <span class="yellowBg">span</span>
+                                <div class="redBg">div</div>
+                            </div>
+                        </div>
+                    </div>
+                    <xmp>
+                        <div class="example">
+                            <div class="justifies mls middles">
+                                <div class="h33 lefts">
+                                    <div class="jf-bg greenBg"></div>
+                                    <span>left</span>
+                                    <span class="yellowBg">span</span>
+                                    <div class="yellowBg">div1</div>
+                                    <div class="blueBg">div2</div>
+                                    <div class="greenBg">...</div>
+                                </div>
+                                <div class="h34 centers">
+                                    <div class="jf-bg blueBg"></div>
+                                    <span>center</span>
+                                    <span class="greenBg">span</span>
+                                    <div class="greenBg">div</div>
+                                </div>
+                                <div class="h33 rights">
+                                    <div class="jf-bg grayBg"></div>
+                                    <span>right</span>
+                                    <span class="yellowBg">span</span>
+                                    <div class="redBg">div</div>
+                                </div>
+                            </div>
+                        </div>
+                    </xmp>
+                </p>
+
+                <p>
+                    Align all children of Justifies,eg:centers
+                    <div class="example">
+                        <div class="justifies mls middles centers">
+                            <div class="h33">
+                                <div class="jf-bg greenBg"></div>
+                                <span>center</span>
+                                <span class="yellowBg">span</span>
+                                <div class="yellowBg">div1</div>
+                                <div class="blueBg">div2</div>
+                                <div class="greenBg">...</div>
+                            </div>
+                            <div class="h34">
+                                <div class="jf-bg blueBg"></div>
+                                <span>center</span>
+                                <span class="greenBg">span</span>
+                                <div class="greenBg">div</div>
+                            </div>
+                            <div class="h33">
+                                <div class="jf-bg grayBg"></div>
+                                <span>center</span>
+                                <span class="yellowBg">span</span>
+                                <div class="redBg">div</div>
+                            </div>
+                        </div>
+                    </div>
+                    <xmp>
+                        <div class="example">
+                            <div class="justifies mls middles centers">
+                                <div class="h33">
+                                    <div class="jf-bg greenBg"></div>
+                                    <span>center</span>
+                                    <span class="yellowBg">span</span>
+                                    <div class="yellowBg">div1</div>
+                                    <div class="blueBg">div2</div>
+                                    <div class="greenBg">...</div>
+                                </div>
+                                <div class="h34">
+                                    <div class="jf-bg blueBg"></div>
+                                    <span>center</span>
+                                    <span class="greenBg">span</span>
+                                    <div class="greenBg">div</div>
+                                </div>
+                                <div class="h33">
+                                    <div class="jf-bg grayBg"></div>
+                                    <span>center</span>
+                                    <span class="yellowBg">span</span>
+                                    <div class="redBg">div</div>
+                                </div>
+                            </div>
+                        </div>
+                    </xmp>
+                </p>
+
+            </div>
+
+            <h3>2) Vertical Alignment</h3>
+            <div class="sc-content">
+                <p>
+                    Vertical align in Fixed Area:
+                    <div class="example inlineMiddles mls">
+                        <div class="fixedArea centers inlineTops blueBg">
+                            <div class="h100">
+                                <span>top</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div</div>
+                            </div>
+                        </div><div class="fixedArea centers inlineMiddles yellowBg">
+                            <div class="h100">
+                                <span>middle</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div</div>
+                            </div>
+                        </div><div class="fixedArea centers inlineBottoms grayBg">
+                            <div class="h100">
+                                <span>bottom</span>
+                                <span class="blueBg">span</span>
+                                <div class="redBg">div</div>
+                            </div>
+                        </div>
+                    </div>
+                    <xmp>
+                        <div class="example inlineMiddles mls">
+                            <div class="fixedArea centers inlineTops blueBg">
+                                <div class="h100">
+                                    <span>top</span>
+                                    <span class="greenBg">span</span>
+                                    <div class="redBg">div</div>
+                                </div><div>
+
+                            </div>
+                            </div><div class="fixedArea centers inlineMiddles yellowBg">
+                                <div class="h100">
+                                    <span>middle</span>
+                                    <span class="greenBg">span</span>
+                                    <div class="redBg">div</div>
+                                </div>
+                            </div><div class="fixedArea centers inlineBottoms grayBg">
+                                <div class="h100">
+                                    <span>bottom</span>
+                                    <span class="blueBg">span</span>
+                                    <div class="redBg">div</div>
+                                </div>
+                            </div>
+                        </div>
+                    </xmp>
+                </p>
+
+                <p>
+                    Vertical align in Stretching Area:
+                    <div class="example inlineMiddles mls">
+                        <div class="centers blueBg">
+                            <div class="h100">
+                                <span>middle</span><span class="greenBg">span1</span><span class="greenBg">span2</span><span class="greenBg">...</span>
+                                <div class="redBg">div</div>
+                                <div class="yellowBg">div</div>
+                                <div class="blueBg">div</div>
+                                <div class="grayBg">div</div>
+                                <div class="greenBg">...</div>
+                            </div>
+                        </div><div class="centers yellowBg">
+                            <div class="h100">
+                                <span>middle</span><span class="greenBg">span</span><span class="greenBg">...</span>
+                                <div class="redBg">div</div>
+                                <div class="greenBg">...</div>
+                            </div>
+                        </div><div class="centers grayBg">
+                            <div class="h100">
+                                <span>middle</span><span class="blueBg">span</span><span class="greenBg">...</span>
+                                <div class="redBg">div</div>
+                                <div class="greenBg">...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <xmp>
+                        <div class="example inlineMiddles mls">
+                            <div class="fixedArea centers inlineTops blueBg">
+                                <div class="h100">
+                                    <span>top</span>
+                                    <span class="greenBg">span</span>
+                                    <div class="redBg">div</div>
+                                </div>
+                            </div><div class="fixedArea centers inlineMiddles yellowBg">
+                                <div class="h100">
+                                    <span>middle</span>
+                                    <span class="greenBg">span</span>
+                                    <div class="redBg">div</div>
+                                </div>
+                            </div><div class="fixedArea centers inlineBottoms grayBg">
+                                <div class="h100">
+                                    <span>bottom</span>
+                                    <span class="blueBg">span</span>
+                                    <div class="redBg">div</div>
+                                </div>
+                            </div>
+                        </div>
+                    </xmp>
+                </p>
+
+                <p>
+                    Vertical align in Justify Layout with Fixed Height:<br/>
+                    <div class="example fixedAreaV justifies centers mls">
+                        <div class="h33 top">
+                            <div class="jf-bg blueBg"></div>
+                            <span>top</span>
+                            <span class="greenBg">span</span>
+                            <div class="redBg">div</div>
+                        </div><div class="h34 middle">
+                            <div class="jf-bg yellowBg"></div>
+                            <span>middle</span>
+                            <span class="greenBg">span</span>
+                            <div class="redBg">div</div>
+                        </div><div class="h33 bottom">
+                            <div class="jf-bg grayBg"></div>
+                            <span>bottom</span>
+                            <span class="blueBg">span</span>
+                            <div class="redBg">div</div>
+                        </div>
+                    </div>
+                    <xmp>
+                        <div class="example fixedAreaV justifies centers mls">
+                            <div class="h33 top">
+                                <div class="jf-bg blueBg"></div>
+                                <span>top</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div</div>
+                            </div><div class="h34 middle">
+                                <div class="jf-bg yellowBg"></div>
+                                <span>middle</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div</div>
+                            </div><div class="h33 bottom">
+                                <div class="jf-bg grayBg"></div>
+                                <span>bottom</span>
+                                <span class="blueBg">span</span>
+                                <div class="redBg">div</div>
+                            </div>
+                        </div>
+                    </xmp>
+                </p>
+
+                <p>
+                    Vertical align in Justify Layout with Stretching Height:<br/>
+                    <div class="example justifies centers mls">
+                        <div class="h25 top">
+                            <div class="jf-bg grayBg"></div>
+                            <span>The heightest column</span>
+                            <span class="greenBg">span</span>
+                            <div class="redBg">div1</div>
+                            <div class="blueBg">div2</div>
+                            <div class="redBg">div3</div>
+                            <div class="yellowBg">...</div>
+                        </div>
+                        <div class="h25 top">
+                            <div class="jf-bg blueBg"></div>
+                            <span>top</span>
+                            <span class="greenBg">span</span>
+                            <div class="redBg">div</div>
+                        </div>
+                        <div class="h25 middle">
+                            <div class="jf-bg yellowBg"></div>
+                            <span>middle</span>
+                            <span class="greenBg">span</span>
+                            <div class="redBg">div</div>
+                        </div><div class="h25 bottom">
+                            <div class="jf-bg grayBg"></div>
+                            <span>bottom</span>
+                            <span class="blueBg">span</span>
+                            <div class="redBg">div</div>
+                        </div>
+                    </div>
+                    <xmp>
+                        <div class="example justifies centers mls">
+                            <div class="h25 top">
+                                <div class="jf-bg grayBg"></div>
+                                <span>The heightest column</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div1</div>
+                                <div class="blueBg">div2</div>
+                                <div class="redBg">div3</div>
+                                <div class="yellowBg">...</div>
+                            </div>
+                            <div class="h25 top">
+                                <div class="jf-bg blueBg"></div>
+                                <span>top</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div</div>
+                            </div>
+                            <div class="h25 middle">
+                                <div class="jf-bg yellowBg"></div>
+                                <span>middle</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div</div>
+                            </div><div class="h25 bottom">
+                            <div class="jf-bg grayBg"></div>
+                            <span>bottom</span>
+                            <span class="blueBg">span</span>
+                            <div class="redBg">div</div>
+                        </div>
+                        </div>
+                    </xmp>
+                </p>
+
+                <p>
+                    Align all children of Justifies,eg:middle<br/>
+                    <div class="example fixedAreaV justifies centers middles mls">
+                        <div class="h33 v100">
+                            <div class="jf-bg blueBg"></div>
+                            <span>middles</span>
+                            <span class="greenBg">span</span>
+                            <div class="redBg">div</div>
+                        </div><div class="h34 v100">
+                        <div class="jf-bg yellowBg"></div>
+                            <span>middles</span>
+                            <span class="greenBg">span</span>
+                            <div class="redBg">div</div>
+                        </div><div class="h33 v100">
+                            <div class="jf-bg grayBg"></div>
+                            <span>middles</span>
+                            <span class="blueBg">span</span>
+                            <div class="redBg">div</div>
+                        </div>
+                    </div>
+                    <xmp>
+                        <div class="example fixedAreaV justifies centers middles mls">
+                            <div class="h33 v100">
+                                <div class="jf-bg blueBg"></div>
+                                <span>middles</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div</div>
+                            </div><div class="h34 v100">
+                                <div class="jf-bg yellowBg"></div>
+                                <span>middles</span>
+                                <span class="greenBg">span</span>
+                                <div class="redBg">div</div>
+                            </div><div class="h33 v100">
+                                <div class="jf-bg grayBg"></div>
+                                <span>middles</span>
+                                <span class="blueBg">span</span>
+                                <div class="redBg">div</div>
+                            </div>
+                        </div>
+                    </xmp>
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="section">
+        <h2>CKCSS Layout</h2>
+
+        <div class="sc-content">
+            <h3>1) Justifying Layout:</h3>
+            <div class="sc-content">
+                CKCSS Justifying Layout, allow to set any percent value from 1 to 100, it is easy and flexible;
+                <div class="example mts">
+                    <div class="justifies centers middles" >
+                        <div class="h50 redBg">
+                            2Column(h50)
+                            <span class="greenBg">span</span>
+                            <div class="greenBg">div</div>
+                        </div>
+                        <div class="h50 blueBg">2Column(h50)</div>
+                    </div>
+                    <div class="justifies centers" >
+                        <div class="h33 yellowBg">3Column(h33)</div>
+                        <div class="h34 greenBg">3Column(h34)</div>
+                        <div class="h33 yellowBg">3Column(h33)</div>
+                    </div>
+                    <div class="justifies centers" >
+                        <div class="h25 redBg">4Column(h25)</div>
+                        <div class="h25 blueBg">4Column(h25)</div>
+                        <div class="h25 redBg">4Column(h25)</div>
+                        <div class="h25 blueBg">4Column(h25)</div>
+                    </div>
+                    <div class="justifies centers" >
+                        <div class="h20 yellowBg">5Column(h20)</div>
+                        <div class="h20 greenBg">5Column(h20)</div>
+                        <div class="h20 yellowBg">5Column(h20)</div>
+                        <div class="h20 greenBg">5Column(h20)</div>
+                        <div class="h20 yellowBg">5Column(h20)</div>
+                    </div>
+                    <div class="justifies centers" >
+                        <div class="h37 redBg">This is 37%</div>
+                        <div class="h63 blueBg">This is 63%</div>
+                    </div>
+                    <div class="justifies centers middles" >
+                        <div class="h50 blueBg">
+                            <div class="h100 grayBg">This is 100% relative to parent</div>
+
+                            <div class="h100 justifies middles">
+                                <div class="h38 greenBg">This is 38% relative to parent again</div>
+                                <div class="h62 redBg">This is 62% relative to parent again</div>
+                            </div>
+                        </div>
+                        <div class="h50 greenBg">This is 50% </div>
+                    </div>
+                </div>
+
+                <xmp>
+                    <div class="example mts">
+                        <div class="justifies centers middles" >
+                            <div class="h50 redBg">
+                                2Column(h50)
+                                <span class="greenBg">span</span>
+                                <div class="greenBg">div</div>
+                            </div>
+                            <div class="h50 blueBg">2Column(h50)</div>
+                        </div>
+                        <div class="justifies centers" >
+                            <div class="h33 yellowBg">3Column(h33)</div>
+                            <div class="h34 greenBg">3Column(h34)</div>
+                            <div class="h33 yellowBg">3Column(h33)</div>
+                        </div>
+                        <div class="justifies centers" >
+                            <div class="h25 redBg">4Column(h25)</div>
+                            <div class="h25 blueBg">4Column(h25)</div>
+                            <div class="h25 redBg">4Column(h25)</div>
+                            <div class="h25 blueBg">4Column(h25)</div>
+                        </div>
+                        <div class="justifies centers" >
+                            <div class="h20 yellowBg">5Column(h20)</div>
+                            <div class="h20 greenBg">5Column(h20)</div>
+                            <div class="h20 yellowBg">5Column(h20)</div>
+                            <div class="h20 greenBg">5Column(h20)</div>
+                            <div class="h20 yellowBg">5Column(h20)</div>
+                        </div>
+                        <div class="justifies centers" >
+                            <div class="h37 redBg">This is 37%</div>
+                            <div class="h63 blueBg">This is 63%</div>
+                        </div>
+                        <div class="justifies centers middles" >
+                            <div class="h50 blueBg">
+                                <div class="h100 grayBg">This is 100% relative to parent</div>
+
+                                <div class="h100 justifies middles">
+                                    <div class="h38 greenBg">This is 38% relative to parent again</div>
+                                    <div class="h62 redBg">This is 62% relative to parent again</div>
+                                </div>
+                            </div>
+                            <div class="h50 greenBg">This is 50% </div>
+                        </div>
+                    </div>
+                </xmp>
+            </div>
+            <h3>2) Justify Layout with space: </h3>
+            <div class="sc-content">
+                <div class="example mts">
+                    <div class="justifies centers mls middles" >
+                        <div class="h50"><div class="jf-bg redBg"></div>
+                            <div>
+                                2Column(h50)<span class="greenBg">span</span>
+                                <div class="greenBg">div</div>
+                            </div>
+                        </div>
+                        <div class="h50"><div class="jf-bg blueBg"></div><div>2Column(h50)</div></div>
+                    </div>
+                    <div class="justifies centers mls">
+                        <div class="h33">
+                            <div class="jf-bg yellowBg"></div>
+                            <div>3Column(h33)</div>
+                        </div>
+                        <div class="h34">
+                            <div class="jf-bg greenBg"></div>
+                            <div>3Column(h34)</div>
+                        </div>
+                        <div class="h33">
+                            <div class="jf-bg yellowBg"></div>
+                            <div>3Column(h33)</div>
+                        </div>
+                    </div>
+                    <div class="justifies centers mls">
+                        <div class="h25">
+                            <div class="jf-bg redBg"></div>
+                            <div>4Column(h25)</div>
+                        </div>
+                        <div class="h25">
+                            <div class="jf-bg blueBg"></div>
+                            <div>4Column(h25)</div>
+                        </div>
+                        <div class="h25">
+                            <div class="jf-bg redBg"></div>
+                            <div>4Column(h25)</div>
+                        </div>
+                        <div class="h25">
+                            <div class="jf-bg blueBg"></div>
+                            <div>4Column(h25)</div>
+                        </div>
+                    </div>
+                    <div class="justifies centers mls">
+                        <div class="h20">
+                            <div class="jf-bg yellowBg"></div>
+                            <div>5Column(h20)</div>
+                        </div>
+                        <div class="h20">
+                            <div class="jf-bg greenBg"></div>
+                            <div>5Column(h20)</div>
+                        </div>
+                        <div class="h20">
+                            <div class="jf-bg yellowBg"></div>
+                            <div>5Column(h20)</div>
+                        </div>
+                        <div class="h20">
+                            <div class="jf-bg greenBg"></div>
+                            <div>5Column(h20)</div>
+                        </div>
+                        <div class="h20">
+                            <div class="jf-bg yellowBg"></div>
+                            <div>5Column(h20)</div>
+                        </div>
+                    </div>
+                    <div class="justifies centers mls">
+                        <div class="h37">
+                            <div class="jf-bg redBg"></div>
+                            <div>This is 37%</div>
+                        </div>
+                        <div class="h63">
+                            <div class="jf-bg blueBg"></div>
+                            <div>This is 63%</div>
+                        </div>
+                    </div>
+                    <div class="justifies centers middles mls">
+                        <div class="h50">
+                            <div class="h100">
+                                <div class="jf-bg grayBg"></div>
+                                <div>This is 100% relative to parent</div>
+                            </div>
+
+                            <div class="h100 justifies middles mls">
+                                <div class="h38">
+                                    <div class="jf-bg greenBg"></div>
+                                    <div>This is 38% relative to parent again</div>
+                                </div>
+                                <div class="h62">
+                                    <div class="jf-bg redBg"></div>
+                                    <div>This is 62% relative to parent again</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h50">
+                            <div class="jf-bg greenBg"></div>
+                            <div>This is 50%</div>
+                        </div>
+                    </div>
+                </div>
+                <xmp>
+                    <div class="example mts">
+                        <div class="justifies centers mls middles" >
+                            <div class="h50"><div class="jf-bg redBg"></div>
+                                <div>
+                                    2Column(h50)<span class="greenBg">span</span>
+                                    <div class="greenBg">div</div>
+                                </div>
+                            </div>
+                            <div class="h50"><div class="jf-bg blueBg"></div><div>2Column(h50)</div></div>
+                        </div>
+                        <div class="justifies centers mls">
+                            <div class="h33">
+                                <div class="jf-bg yellowBg"></div>
+                                <div>3Column(h33)</div>
+                            </div>
+                            <div class="h34">
+                                <div class="jf-bg greenBg"></div>
+                                <div>3Column(h34)</div>
+                            </div>
+                            <div class="h33">
+                                <div class="jf-bg yellowBg"></div>
+                                <div>3Column(h33)</div>
+                            </div>
+                        </div>
+                        <div class="justifies centers mls">
+                            <div class="h25">
+                                <div class="jf-bg redBg"></div>
+                                <div>4Column(h25)</div>
+                            </div>
+                            <div class="h25">
+                                <div class="jf-bg blueBg"></div>
+                                <div>4Column(h25)</div>
+                            </div>
+                            <div class="h25">
+                                <div class="jf-bg redBg"></div>
+                                <div>4Column(h25)</div>
+                            </div>
+                            <div class="h25">
+                                <div class="jf-bg blueBg"></div>
+                                <div>4Column(h25)</div>
+                            </div>
+                        </div>
+                        <div class="justifies centers mls">
+                            <div class="h20">
+                                <div class="jf-bg yellowBg"></div>
+                                <div>5Column(h20)</div>
+                            </div>
+                            <div class="h20">
+                                <div class="jf-bg greenBg"></div>
+                                <div>5Column(h20)</div>
+                            </div>
+                            <div class="h20">
+                                <div class="jf-bg yellowBg"></div>
+                                <div>5Column(h20)</div>
+                            </div>
+                            <div class="h20">
+                                <div class="jf-bg greenBg"></div>
+                                <div>5Column(h20)</div>
+                            </div>
+                            <div class="h20">
+                                <div class="jf-bg yellowBg"></div>
+                                <div>5Column(h20)</div>
+                            </div>
+                        </div>
+                        <div class="justifies centers mls">
+                            <div class="h37">
+                                <div class="jf-bg redBg"></div>
+                                <div>This is 37%</div>
+                            </div>
+                            <div class="h63">
+                                <div class="jf-bg blueBg"></div>
+                                <div>This is 63%</div>
+                            </div>
+                        </div>
+                        <div class="justifies centers middles mls">
+                            <div class="h50">
+                                <div class="h100">
+                                    <div class="jf-bg grayBg"></div>
+                                    <div>This is 100% relative to parent</div>
+                                </div>
+
+                                <div class="h100 justifies middles mls">
+                                    <div class="h38">
+                                        <div class="jf-bg greenBg"></div>
+                                        <div>This is 38% relative to parent again</div>
+                                    </div>
+                                    <div class="h62">
+                                        <div class="jf-bg redBg"></div>
+                                        <div>This is 62% relative to parent again</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h50">
+                                <div class="jf-bg greenBg"></div>
+                                <div>This is 50%</div>
+                            </div>
+                        </div>
+                    </div>
+                </xmp>
+            </div>
+
+            <h3>3) Justifying Layout With Fixed Slide:</h3>
+            <div class="sc-content">
+                <div>
+                    To use justifying layout with fixed slide;<br/>
+                    <p>
+                        Left Column Fixed:
+                        <div class="example">
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="jf-fixed redBg">
+                                    150px(jf-fixed)
+                                </div>
+                                <div class="blueBg">
+                                    Justified content
+                                </div>
+                            </div>
+                        </div>
+
+                        <xmp>
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="jf-fixed redBg">
+                                    150px(jf-fixed)
+                                </div>
+                                <div class="blueBg">
+                                    Justified content
+                                </div>
+                            </div>
+                        </xmp>
+                    </p>
+                    <p>
+                        Right Column Fixed:
+                        <div class="example">
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                            </div>
+                        </div>
+
+                        <xmp>
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                            </div>
+                        </xmp>
+                    </p>
+                    <p>
+                        Center Column Fixed:
+                        <div class="example">
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="blueBg">Justified content</div>
+                            </div>
+                         </div>
+
+                        <xmp>
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                            </div>
+                        </xmp>
+                    </p>
+                    <p>
+                        Left and Right Column Fixed:
+                        <div class="example">
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                            </div>
+                        </div>
+                        <xmp>
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                            </div>
+                        </xmp>
+                    </p>
+                    <p>
+                        You can put any number Fixed Column and at any Comlumn:
+                        <div class="example">
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="jf-fixed yellowBg">150px(jf-fixed)</div>
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="blueBg">...</div>
+                            </div>
+                        </div>
+
+                        <xmp>
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="jf-fixed yellowBg">150px(jf-fixed)</div>
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="blueBg">...</div>
+                            </div>
+                        </xmp>
+                    </p>
+                    <p>
+                        Fixed Column with space:
+                        <div class="example justifies fixedAreaV middles centers mls">
+                            <div class="jf-fixed">
+                                <div class="jf-bg redBg"></div>
+                                <div>150px(jf-fixed)</div>
+                            </div>
+                            <div class="jf-fixed">
+                                <div class="jf-bg yellowBg"></div>
+                                <div>150px(jf-fixed)</div>
+                            </div>
+                            <div>
+                                <div class="jf-bg blueBg"></div>
+                                <div>Justified content</div>
+                            </div>
+                            <div class="jf-fixed">
+                                <div class="jf-bg redBg"></div>
+                                <div>150px(jf-fixed)</div>
+                            </div>
+                            <div>
+                                <div class="jf-bg blueBg"></div>
+                                <div>...</div>
+                            </div>
+                        </div>
+                        <xmp>
+                            <div class="justifies fixedAreaV middles centers">
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="jf-fixed yellowBg">150px(jf-fixed)</div>
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-fixed redBg">150px(jf-fixed)</div>
+                                <div class="blueBg">...</div>
+                            </div>
+                        </xmp>
+                    </p>
+                    <p>
+                        Mostly, you need to overwrite the width value of slide in your page:
+                        <div class="example fixedAreaV justifies middles centers somePage">
+                            <div class="jf-left redBg">200px(jf-fixed)</div>
+                            <div class="blueBg">Justified content</div>
+                            <div class="jf-right redBg">240px(jf-fixed)</div>
+                        </div>
+                        <xmp>
+                            CSS:
+                            .somePage.justifies>.jf-left{
+                                width:200px;
+                            }
+
+                            .somePage.justifies>.jf-right{
+                                width:240px;
+                            }
+                            HTML:
+                            <div class="example fixedAreaV justifies middles centers somePage">
+                                <div class="jf-left redBg">200px(jf-fixed)</div>
+                                <div class="blueBg">Justified content</div>
+                                <div class="jf-right redBg">240px(jf-fixed)</div>
+                            </div>
+                        </xmp>
+                    </p>
+                </div>
+            </div>
+
+            <h3>4) Form Layout </h3>
+            <div class="sc-content">
+                <p>
+                    Form Layout is one of Justify Layout:
+                    <div class="justifies">
+                        <div class="h50 justifies middles">
+                            <div class="jf-fixed right">
+                                Label:
+                            </div><div class="h100">
+                                <input type="text" class="textInput" value="Value"/>
+                            </div>
+                        </div>
+                        <div class="h50 justifies middles">
+                            <div class="jf-fixed right">
+                                Label:
+                            </div><div class="h100">
+                                <input type="text" class="textInput" value="Value"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <xmp>
+                        <div class="justifies">
+                            <div class="h50 justifies middles">
+                                <div class="jf-fixed right">
+                                    Label:
+                                </div><div class="h100">
+                                    <input type="text" class="textInput" value="Value"/>
+                                </div>
+                                </div>
+                                <div class="h50 justifies middles">
+                                    <div class="jf-fixed right">
+                                        Label:
+                                    </div><div class="h100">
+                                    <input type="text" class="textInput" value="Value"/>
+                                </div>
+                            </div>
+                        </div>
+                    </xmp>
+                </p>
+                <p>
+                    You can also use below CSS for Form Layout:
+                    <div class="form">
+                        <div class="fm-group h50">
+                            <div class="fm-label">Label:</div>
+                            <div class="fm-value">
+                                <input type="text" class="textInput" value="Value"/>
+                            </div>
+                        </div>
+                        <div class="fm-group h50">
+                            <div class="fm-label">Label:</div>
+                            <div class="fm-value">
+                                <input type="text" class="textInput" value="Value"/>
+                            </div>
+                        </div>
+                    </div>
+                    <xmp>
+                        <div class="form">
+                            <div class="fm-group h50">
+                                <div class="fm-label">Label:</div>
+                                <div class="fm-value">
+                                    <input type="text" class="textInput" value="Value"/>
+                                </div>
+                            </div>
+                            <div class="fm-group h50">
+                                <div class="fm-label">Label:</div>
+                                <div class="fm-value">
+                                    <input type="text" class="textInput" value="Value"/>
+                                </div>
+                            </div>
+                        </div>
+                    </xmp>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>CKCSS Popup Window</h2>
+        <div class="button" id="PopupBt">popup window</div>
+        <xmp>
+            <div class="popupWin inlineMiddles">
+                <div class="pw-win">
+                    <div class="pw-close">X</div>
+                    <div class="pw-title pdSm">title</div>
+                    <div class="pw-content pd">
+                        content
+                    </div>
+                </div>
+            </div>
+        </xmp>
+    </div>
+
+    <div class="popupWin inlineMiddles">
+        <div class="pw-win">
+            <div class="pw-close">X</div>
+            <div class="pw-title pdSm">title</div>
+            <div class="pw-content pd">
+                content
+            </div>
+        </div>
+    </div>
+    <!--<div class="section">
+        <h2>CKCSS Base Controls:</h2>
+        <p>
+            CKCSS give some base controls,eg:button,link,popupWindow, you can get more controls from <a href="https://github.com/CheckZhang/ckjs">CKJS</a> :
+        </p>
+        <h3>1) Button </h3>
+        <div>
+            <span class="button">normal button</span>
+            <span class="button bt_submit">submit button</span>
+            <span class="button bt_cancle">cancle button</span>
+        </div>
+        <xmp>
+            <div>
+                <span class="button">normal button</span>
+                <span class="button bt_submit">submit button</span>
+                <span class="button bt_cancle">cancle button</span>
+            </div>
+        </xmp>
+        <h3>2) Text Input </h3>
+        <div>
+            waitting next version...
+        </div>
+
+        <h3>2) Area Input </h3>
+        <div>
+            waitting next version...
+        </div>
+    </div>-->
+<script>
+    $(".more").click(function(){
+        $(".moreContent").toggle();
+    })
+    $("#PopupBt").click(function(){
+        $(".popupWin").show();
+    })
+    $(".popupWin .pw-close").click(function(){
+        $(this).parents(".popupWin").hide();
+    })
+</script>
 </body>
 </html>
